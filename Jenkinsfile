@@ -6,7 +6,7 @@ def COLOR_MAP = [
 pipeline{
     agent any
     tools{
-        nodejs 'node16'
+        nodejs 'nodejs21'
     }
     environment {
         SCANNER_HOME=tool 'sonar-scanner'
