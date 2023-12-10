@@ -71,7 +71,7 @@ pipeline{
         }
         stage('Deploy to Container'){
             steps{
-                sh 'docker run -d --name youtube05 -p 3000:3000 manjunk/youtube:latest'
+                sh 'docker run -d --name youtube15 -p 3000:3000 manjunk/youtube:latest'
             }
         }
         stage('Deploy to Kubernets'){
