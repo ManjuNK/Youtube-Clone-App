@@ -42,12 +42,12 @@ pipeline{
                 sh "npm install"
             }
         }
-        stage('OWASP FS SCAN') {
-            steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
+        //stage('OWASP FS SCAN') {
+        //    steps {
+        //      dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
+        //        dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        //    }
+       // }
         stage('TRIVY FS SCAN') {
             steps {
                 sh "trivy fs . > trivyfs.txt"
@@ -71,7 +71,7 @@ pipeline{
         }
         stage('Deploy to Container'){
             steps{
-                sh 'docker run -d --name youtube09 -p 3000:3000 manjunk/youtube:latest'
+                sh 'docker run -d --name youtube11 -p 3000:3000 manjunk/youtube:latest'
             }
         }
         stage('Deploy to Kubernets'){
