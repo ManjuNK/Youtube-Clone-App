@@ -12,7 +12,7 @@ pipeline{
         SCANNER_HOME=tool 'sonar-scanner'
     }
     stages {
-        stage('clean workspace'){
+        stage('Clean Workspace'){
             steps{
                 cleanWs()
             }
@@ -30,7 +30,7 @@ pipeline{
                 }
             }
         }
-        stage("quality gate"){
+        stage("Quality Gate"){
            steps {
                 script {
                     waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token' 
@@ -64,17 +64,17 @@ pipeline{
                 }
             }
         }
-        stage("TRIVY"){
+        stage("TRIVY Image Scan"){
             steps{
                 sh "trivy image manjunk/youtube:latest > trivyimage.txt" 
             }
         }
-        stage('Deploy to container'){
+        stage('Deploy to Container'){
             steps{
                 sh 'docker run -d --name youtube1 -p 3000:3000 manjunk/youtube:latest'
             }
         }
-        stage('Deploy to kubernets'){
+        stage('Deploy to Kubernets'){
             steps{
                 script{
                     withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
